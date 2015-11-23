@@ -1,19 +1,28 @@
+.clearfix:before,
+.clearfix:after {
+  content:"";
+  display:table;
+}
+.clearfix:after {
+  clear:both;
+}
+.clearfix {
+  zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
+
 .note {
+  display: block;
+  float: left;
   height: 30px;
   background-color: #ffddee;
   border: 1px solid black;
   border-radius: 8px;
 }
 
-.resize {
-  position: relative;
-  background-color: green;
-  height: 20px;
-}
-
-.discrete-indicator {
-  height: 20px;
-  background-color: orange;
+.note .pitch-label {
+  vertical-align: -5px;
+  padding-left: 6px;
+  font-family: sans-serif;
 }
 
 .note-envelope {
@@ -40,7 +49,8 @@ body.dragging-note {
 }
 
 .note-editor {
-  display: inline-block;
+  display: block;
+  float: left;
 }
 
 .note-editor .menu {

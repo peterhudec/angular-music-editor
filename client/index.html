@@ -31,12 +31,16 @@
     <hr>
     <h3>Note Editor</h3>
     <div ng-controller="noteEditor">
-      Values from attributes: <br>
-      zoom level <input type="number" ng-model="zl"><br>
-      tick width <input type="number" ng-model="zq"><br>
+      Bound models for the first note: <br>
+      zoom level <input type="number" ng-model="zoomLevel"><br>
+      tick width <input type="number" ng-model="tickWidth"><br>
       note duration <input type="number" ng-model="duration"><br>
       pitch <input type="number" ng-model="pitch"><br>
-      <mc-note-editor zoom-level="zl" tick-width="zq" duration="duration" pitch="pitch"></mc-note-editor>
+      <div class="clearfix">
+        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="duration" pitch="pitch"></mc-note-editor>
+        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="2" pitch="5"></mc-note-editor>
+        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="0.5" pitch="7"></mc-note-editor>
+      </div>
     </div>
 
     <hr>
@@ -48,7 +52,12 @@
       tick width <input type="number" ng-model="zq"><br>
       note duration <input type="number" ng-model="duration"><br>
       pitch <input type="number" ng-model="pitch"><br>
-      <mc-note zoom-level="zl" tick-width="zq" duration="duration" pitch="pitch"></mc-note>
+
+      <div class="clearfix">
+        <mc-note zoom-level="zl" tick-width="zq" duration="duration" pitch="pitch"></mc-note>
+        <mc-note zoom-level="zl" tick-width="zq" duration="0.5" pitch="3"></mc-note>
+        <mc-note zoom-level="zl" tick-width="zq" duration="2" pitch="9"></mc-note>
+      </div>
     </div>
 
     <script type="text/javascript">
@@ -58,9 +67,10 @@
         $scope.duration = 2;
         $scope.pitch = 3;
       });
+
       angular.module('musicode').controller('noteEditor', function ($scope) {
-        $scope.zl = 3;
-        $scope.zq = 20;
+        $scope.zoomLevel = 3;
+        $scope.tickWidth = 20;
         $scope.duration = 2;
         $scope.pitch = 3;
       });

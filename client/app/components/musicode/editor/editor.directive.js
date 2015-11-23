@@ -175,8 +175,9 @@
           $element.removeClass('dragging');
           $body.removeClass('dragging-note');
 
+          // TODO: Set as option through attributes?
           // Run root digest cycle.
-          scope.$apply();
+          // scope.$apply();
         }
       });
 
@@ -191,8 +192,11 @@
         // Update models
         scope.discreteWidth = newDiscreteWidth;
         scope.duration = newDuration;
+
+        // TODO: Set as option through attributes?
         // Update DOM, but only in this directive.
-        scope.$digest();
+        // scope.$digest();
+        scope.$apply();
       }
     }
   }

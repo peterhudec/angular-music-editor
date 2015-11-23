@@ -1,0 +1,27 @@
+.note {
+  height: 30px;
+  background-color: #ffddee;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.resize {
+  position: relative;
+  background-color: green;
+  height: 20px;
+}
+
+.discrete-indicator {
+  height: 20px;
+  background-color: orange;
+}
+
+.resize-handle {
+  width: 20px;
+  height: 20px;
+  background-color: lime;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: ew-resize;
+}

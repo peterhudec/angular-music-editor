@@ -1,0 +1,20 @@
+<div class="note-editor">
+  <mc-note
+    zoom-level="zoomLevel"
+    tick-width="tickWidth"
+    duration="duration"
+    pitch="pitch"></mc-note>
+
+  <div class="discrete-indicator"></div>
+  <div class="resize">
+    <div class="resize-handle"></div>
+  </div>
+  <div>Dragged distance: {{ distance }}</div>
+  <div>Smooth width: {{ smoothWidth }}</div>
+  <div>Discrete width: {{ discreteWidth }}</div>
+  <div class="menu">
+      <input type="button" value="add before" />
+      pitch: <select ng-model="pitch" ng-options="pitches.indexOf(pitch) as pitch for pitch in pitches"></select>
+      <input type="button" value="add after" />
+  </div>
+</div>

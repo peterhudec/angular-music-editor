@@ -1,0 +1,20 @@
+{
+  "name": "musicode",
+  "version": "0.0.0",
+  "description": "Proof of concept of the Musicode idea.",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "./node_modules/nodemon/bin/nodemon.js ./server/app.js",
+    "server": "node ./server/app.js"
+  },
+  "author": "Peter Hudec",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.4.8"
+  },
+  "devDependencies": {
+    "express": "^4.13.3",
+    "jquery": "^2.1.4",
+    "nodemon": "^1.8.1"
+  }
+}

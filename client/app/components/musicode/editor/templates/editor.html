@@ -1,0 +1,13 @@
+<div>
+  <h1>Musicode Editor</h1>
+  <input type="button" value="zoom +" ng-click="zoomIn()"/>
+  <input type="button" value="zoom -" ng-click="zoomOut()"/>
+  <span>Zoom level: {{ zoomLevel }}</span>
+  <br />
+
+  <input type="button" value="Add track" ng-click="addTrack()"/>
+  <input type="button" value="Save" ng-click="save({result: foo})">
+  <mc-timeline tick-width="tickWidth">
+      <mc-track ng-repeat="track in tracks" tick-width="tickWidth" zoom-level="zoomLevel"/>
+  </mc-timeline>
+</div>

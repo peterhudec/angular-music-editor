@@ -5,7 +5,7 @@
     .directive('mcTimeline', mcTimelineDirective)
     .directive('mcTrack', mcTrackDirective)
     .directive('mcNote', ['pitchNames', mcNoteDirective])
-    .directive('mcNoteEditor', ['pitchNames', 'noteUtils', mcNoteEditorDirective]);
+    .directive('mcNoteEditor', ['$window', 'pitchNames', 'noteUtils', mcNoteEditorDirective]);
 
   function mcEditorDirective () {
     return {
@@ -129,7 +129,7 @@
     }
   }
 
-  function mcNoteEditorDirective (pitchNames, noteUtils) {
+  function mcNoteEditorDirective ($window, pitchNames, noteUtils) {
     return {
       scope: {
         zoomLevel: '=',
@@ -137,77 +137,55 @@
         duration: '=',
         pitch: '='
       },
-      controller: ['$scope', controller],
       templateUrl: 'app/components/musicode/editor/templates/note-editor.html',
       link: link
     };
 
-    function controller ($scope) {
-      $scope.pitches = pitchNames;
-      $scope.distance = 0;
-      $scope.smoothWidth = noteUtils.getWidth($scope) + $scope.distance;
-      $scope.discreteWidth = $scope.smoothWidth;
-    }
+    function link (scope, element) {
+      var start, width;
+      var dragging = false;
 
-    function link (scope, element, attributes, controller) {
+      var $win = angular.element($window);
+      var $body = angular.element('body');
+      var $resizeHandle = element.find('.resize-handle');
 
-      // TODO: Use $window service.
-      var $window = $(window);
-      var $resizeHandle = element.find('.resize');
-      var $d = element.find('.discrete-indicator');
+      scope.pitches = pitchNames;
 
-      scope.$watchGroup(['zoomLevel', 'tickWidth', 'duration'], function (newVal, oldVal) {
-        console.log('zl changed');
-        scope.smoothWidth = noteUtils.getWidth(scope) + scope.distance;
-        scope.discreteWidth = scope.smoothWidth;
-        // console.log('zl changed', $scope.discreteWidth);
+      scope.$watchGroup(['zoomLevel', 'tickWidth', 'duration'], function () {
+        scope.discreteWidth = noteUtils.getWidth(scope);
       });
 
-      $resizeHandle.css('width', scope.smoothWidth);
-      $d.css('width', scope.discreteWidth);
-
-      var dragging = false;
-      var start = 0;
-      var smoothWidth = scope.smoothWidth;
-
-      element.find('.resize-handle').on('mousedown', function (e) {
+      $resizeHandle.on('mousedown', function (e) {
         dragging = true;
         start = e.pageX;
-        smoothWidth = scope.smoothWidth;
-        console.log('start drag', e.target, e);
-        $window.on('mousemove', drag);
+        width = scope.discreteWidth;
+        $win.on('mousemove', drag);
+        $body.addClass('dragging-note');
       });
 
-      $window.on('mouseup', function (e) {
+      $win.on('mouseup', function (e) {
         if (dragging) {
-          console.log('end drag');
-          $window.off('mousemove', drag);
+          $win.off('mousemove', drag);
           dragging = false;
-          smoothWidth = scope.smoothWidth;
-          scope.distance = 0;
+          width = scope.discreteWidth;
+          $body.removeClass('dragging-note');
+          // Run root digest cycle.
           scope.$apply();
         }
       });
 
-      scope.$watch('discreteWidth', function (newVal) {
-        console.log('discrete width changed', newVal);
-        $resizeHandle.css('width', scope.discreteWidth);
-        $d.css('width', scope.discreteWidth);
-      });
-
       function drag (e) {
         e.preventDefault();
-        scope.distance = e.pageX - start;
 
+        var smoothWidth = width + e.pageX - start;
+        var numberOfTicks = Math.round(smoothWidth / scope.tickWidth);
+        var newDiscreteWidth = numberOfTicks * scope.tickWidth;
+        var newDuration = newDiscreteWidth / (scope.tickWidth * scope.zoomLevel);
 
-        scope.smoothWidth = smoothWidth + scope.distance;
-        scope.discreteWidth = Math.round(scope.smoothWidth / scope.tickWidth) * scope.tickWidth;
-
-
-        // $resizeHandle.css('width', scope.discreteWidth);
-        // $d.css('width', scope.discreteWidth);
-
-        scope.duration = scope.discreteWidth / (scope.tickWidth * scope.zoomLevel);
+        // Update models
+        scope.discreteWidth = newDiscreteWidth;
+        scope.duration = newDuration;
+        // Update DOM, but only in this directive.
         scope.$digest();
       }
     }

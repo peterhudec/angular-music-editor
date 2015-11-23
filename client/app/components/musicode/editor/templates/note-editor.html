@@ -7,14 +7,6 @@
       pitch="pitch"></mc-note>
     <div class="resize-handle"></div>
   </div>
-
-  <div class="discrete-indicator"></div>
-  <div class="resize">
-    <div class="resize-handle"></div>
-  </div>
-  <div>Dragged distance: {{ distance }}</div>
-  <div>Smooth width: {{ smoothWidth }}</div>
-  <div>Discrete width: {{ discreteWidth }}</div>
   <div class="menu">
       <input type="button" value="add before" />
       pitch: <select ng-model="pitch" ng-options="pitches.indexOf(pitch) as pitch for pitch in pitches"></select>

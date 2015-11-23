@@ -8,8 +8,8 @@
     <div class="resize-handle"></div>
   </div>
   <div class="menu">
-      <input type="button" value="add before" />
+      <input type="button" value="add before" ng-click="onAddBefore()" />
       pitch: <select ng-model="pitch" ng-options="pitches.indexOf(pitch) as pitch for pitch in pitches"></select>
-      <input type="button" value="add after" />
+      <input type="button" value="add after" ng-click="onAddAfter()" />
   </div>
 </div>

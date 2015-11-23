@@ -85,11 +85,11 @@
     }
 
     function link (scope, element, attributes, controller) {
-      element.children('div').css({
-        'background-color': 'rgba(230, 255, 200, .5)',
-        'margin-bottom': '5px',
-        'height': '40px'
-      });
+      // element.children('div').css({
+      //   'background-color': 'rgba(230, 255, 200, .5)',
+      //   'margin-bottom': '5px',
+      //   'height': '40px'
+      // });
     }
   }
 
@@ -135,7 +135,9 @@
         zoomLevel: '=',
         tickWidth: '=',
         duration: '=',
-        pitch: '='
+        pitch: '=',
+        onAddBefore: '&',
+        onAddAfter: '&'
       },
       templateUrl: 'app/components/musicode/editor/templates/note-editor.html',
       link: link

@@ -1,4 +1,8 @@
-<div>
-  <div>zoom quantum: {{ tickWidth }}, zoom level {{ zoomLevel }}</div>
-  <mc-note></mc-note>
+<div class="track">
+  <mc-note-editor
+    ng-repeat="note in [{d: 1, p:0}, {d: 2, p:5}, {d: .5, p:3}, {d: 3, p:9}]"
+    zoom-level="zoomLevel"
+    tick-width="tickWidth"
+    duration="note.d"
+    pitch="note.p"></mc-note-editor>
 </div>

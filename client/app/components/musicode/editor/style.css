@@ -10,9 +10,20 @@
   zoom:1; /* For IE 6/7 (trigger hasLayout) */
 }
 
+.timeline {
+  white-space: nowrap;
+  overflow-x: scroll;
+  font-size: 0;
+}
+
+.note,
+.note-editor {
+  font-size: 16px;
+}
+
 .note {
-  display: block;
-  float: left;
+  display: inline-block;
+  box-sizing: border-box;
   height: 30px;
   background-color: #ffddee;
   border: 1px solid black;
@@ -32,6 +43,7 @@
 
 .resize-handle {
   display: none;
+  box-sizing: border-box;
   width: 10px;
   height: 30px;
   background-color: #774D62;
@@ -49,8 +61,7 @@ body.dragging-note {
 }
 
 .note-editor {
-  display: block;
-  float: left;
+  display: inline-block;
 }
 
 .note-editor .menu {

@@ -16,6 +16,12 @@
   background-color: orange;
 }
 
+.note-envelope {
+  display: inline-block;
+  position: relative;
+  background-color: lightgrey;
+}
+
 .resize-handle {
   width: 20px;
   height: 20px;

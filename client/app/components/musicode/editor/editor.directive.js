@@ -170,7 +170,7 @@
       var start = 0;
       var smoothWidth = scope.smoothWidth;
 
-      $resizeHandle.on('mousedown', function (e) {
+      element.find('.resize-handle').on('mousedown', function (e) {
         dragging = true;
         start = e.pageX;
         smoothWidth = scope.smoothWidth;

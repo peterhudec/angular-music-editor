@@ -19,10 +19,10 @@
 .note-envelope {
   display: inline-block;
   position: relative;
-  background-color: lightgrey;
 }
 
 .resize-handle {
+  display: none;
   width: 10px;
   height: 30px;
   background-color: #774D62;
@@ -37,4 +37,22 @@
 
 body.dragging-note {
   cursor: ew-resize;
+}
+
+.note-editor {
+  display: inline-block;
+}
+
+.note-editor .menu {
+  display: none;
+  position: absolute;
+}
+
+.note-editor:hover .menu,
+.note-editor.dragging .menu {
+  display: block;
+}
+.note-editor:hover .resize-handle,
+.note-editor.dragging .resize-handle {
+  display: block;
 }

@@ -147,6 +147,7 @@
 
       var $win = angular.element($window);
       var $body = angular.element('body');
+      var $element = element.find('.note-editor');
       var $resizeHandle = element.find('.resize-handle');
 
       scope.pitches = pitchNames;
@@ -160,6 +161,8 @@
         start = e.pageX;
         width = scope.discreteWidth;
         $win.on('mousemove', drag);
+
+        $element.addClass('dragging');
         $body.addClass('dragging-note');
       });
 
@@ -168,7 +171,10 @@
           $win.off('mousemove', drag);
           dragging = false;
           width = scope.discreteWidth;
+
+          $element.removeClass('dragging');
           $body.removeClass('dragging-note');
+
           // Run root digest cycle.
           scope.$apply();
         }

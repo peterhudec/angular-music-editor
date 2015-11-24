@@ -13,6 +13,9 @@
 .timeline {
   white-space: nowrap;
   overflow-x: scroll;
+}
+
+.track {
   font-size: 0;
 }
 

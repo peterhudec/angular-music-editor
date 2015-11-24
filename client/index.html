@@ -29,7 +29,7 @@
     <mc-track tick-width="30" zoom-level="1"></mc-track>
 
     <hr>
-    <h3>Note Editor</h3>
+    <h3>Note Editor (Editable Note)</h3>
     <div ng-controller="noteEditor">
       Bound models for the first note: <br>
       zoom level <input type="number" ng-model="zoomLevel"><br>
@@ -38,8 +38,8 @@
       pitch <input type="number" ng-model="pitch"><br>
       <div class="clearfix">
         <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="duration" pitch="pitch"></mc-note-editor>
-        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="2" pitch="5"></mc-note-editor>
-        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="0.5" pitch="7"></mc-note-editor>
+        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth"></mc-note-editor>
+        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth"></mc-note-editor>
       </div>
     </div>
 
@@ -47,7 +47,7 @@
     <h3>Note</h3>
 
     <div ng-controller="note">
-      Values from attributes: <br>
+      Bound models for the first note: <br>
       zoom level <input type="number" ng-model="zl"><br>
       tick width <input type="number" ng-model="zq"><br>
       note duration <input type="number" ng-model="duration"><br>
@@ -73,6 +73,9 @@
         $scope.tickWidth = 20;
         $scope.duration = 2;
         $scope.pitch = 3;
+
+        $scope.foo = 1;
+        $scope.bar = 1;
       });
     </script>
   </body>

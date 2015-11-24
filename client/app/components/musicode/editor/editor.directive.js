@@ -96,10 +96,10 @@
   function mcNoteDirective (pitchNames) {
     return {
       scope: {
-        zoomLevel: '=',
-        tickWidth: '=',
-        duration: '=',
-        pitch: '='
+        zoomLevel: '=?',
+        tickWidth: '=?',
+        duration: '=?',
+        pitch: '=?'
       },
       controller: ['$scope', controller],
       templateUrl: 'app/components/musicode/editor/templates/note.html',
@@ -132,16 +132,22 @@
   function mcNoteEditorDirective ($window, pitchNames, noteUtils) {
     return {
       scope: {
-        zoomLevel: '=',
-        tickWidth: '=',
-        duration: '=',
-        pitch: '='
+        zoomLevel: '=?',
+        tickWidth: '=?',
+        duration: '=?',
+        pitch: '=?'
       },
       templateUrl: 'app/components/musicode/editor/templates/note-editor.html',
       link: link
     };
 
     function link (scope, element) {
+      scope.pitches = pitchNames;
+      // Default values for optional attributes.
+      var initalDuration = 1 /scope.zoomLevel;
+      scope.duration = angular.isDefined(scope.duration) ? scope.duration : initalDuration;
+      scope.pitch = angular.isDefined(scope.pitch) ? scope.pitch : 0;
+
       var start, width;
       var dragging = false;
 
@@ -149,8 +155,6 @@
       var $body = angular.element('body');
       var $element = element.find('.note-editor');
       var $resizeHandle = element.find('.resize-handle');
-
-      scope.pitches = pitchNames;
 
       scope.$watchGroup(['zoomLevel', 'tickWidth', 'duration'], function () {
         scope.discreteWidth = noteUtils.getWidth(scope);

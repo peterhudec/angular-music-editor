@@ -72,8 +72,8 @@
   function mcTrackDirective () {
     return {
       scope: {
-        tickWidth: '=',
-        zoomLevel: '='
+        tickWidth: '=?',
+        zoomLevel: '=?'
       },
       controller: ['$scope', controller],
       link: link,

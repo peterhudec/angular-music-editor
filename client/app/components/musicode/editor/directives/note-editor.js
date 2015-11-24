@@ -66,9 +66,12 @@
       function drag (e) {
         e.preventDefault();
 
-        var smoothWidth = width + e.pageX - start;
+        var draggedDistance = e.pageX - start;
+        var smoothWidth = width + draggedDistance;
         var smoothEndPosition = scope.position + smoothWidth;
-        var snappedEndPosition = smoothEndPosition - (smoothEndPosition % scope.tickWidth);
+        var smoothEndBetweenTicks = smoothEndPosition + scope.tickWidth / 2
+        var remainder = smoothEndBetweenTicks % scope.tickWidth;
+        var snappedEndPosition = smoothEndBetweenTicks - remainder;
         var newDiscreteWidth = snappedEndPosition - scope.position;
         var newDuration = newDiscreteWidth / (scope.tickWidth * scope.zoomLevel);
 

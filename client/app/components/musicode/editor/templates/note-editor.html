@@ -11,5 +11,8 @@
       <input type="button" value="add before" ng-click="onAddBefore()" />
       pitch: <select ng-model="pitch" ng-options="pitches.indexOf(pitch) as pitch for pitch in pitches"></select>
       <input type="button" value="add after" ng-click="onAddAfter()" />
+      <div>position: {{ position }}</div>
+      <div>duration: {{ duration }}</div>
+      <div>width: {{ duration * zoomLevel * tickWidth }}</div>
   </div>
 </div>

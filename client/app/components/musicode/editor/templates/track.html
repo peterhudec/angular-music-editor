@@ -1,8 +1,9 @@
 <div class="track">
   <mc-note-editor
-    zoom-level="zoomLevel"
-    tick-width="tickWidth"></mc-note-editor>
-  <mc-note-editor
+    ng-repeat="note in notes"
+    pitch="note.pitch"
+    duration="note.duration"
+    position="getPosition($index)"
     zoom-level="zoomLevel"
     tick-width="tickWidth"></mc-note-editor>
 </div>

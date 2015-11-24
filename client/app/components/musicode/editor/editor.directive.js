@@ -3,7 +3,7 @@
   angular.module('musicode')
     .directive('mcEditor', mcEditorDirective)
     .directive('mcTimeline', mcTimelineDirective)
-    .directive('mcTrack', mcTrackDirective)
+    .directive('mcTrack', ['noteUtils', mcTrackDirective])
     .directive('mcNote', ['pitchNames', mcNoteDirective])
     .directive('mcNoteEditor', ['$window', 'pitchNames', 'noteUtils', mcNoteEditorDirective]);
 
@@ -25,7 +25,7 @@
 
     function controller ($scope) {
       $scope.zoomLevel = 1;
-      $scope.tickWidth = 80;
+      $scope.tickWidth = 20;
       $scope.tracks = [];
 
       $scope.zoomIn = zoomIn;
@@ -69,7 +69,7 @@
     }
   }
 
-  function mcTrackDirective () {
+  function mcTrackDirective (noteUtils) {
     return {
       scope: {
         tickWidth: '=?',
@@ -81,7 +81,38 @@
     };
 
     function controller ($scope) {
+      $scope.notes = [
+        {
+          pitch: 0,
+          duration: 1
+        },
+        {
+          pitch: 4,
+          duration: 3
+        },
+        {
+          pitch: 7,
+          duration: 2
+        },
+      ];
 
+      $scope.getPosition = function (idx) {
+        var currentNote = $scope.notes[idx];
+        if (idx) {
+          var previousNote = $scope.notes[idx - 1];
+
+          var previousWidth = noteUtils.getWidth({
+            tickWidth: $scope.tickWidth,
+            zoomLevel: $scope.zoomLevel,
+            duration: previousNote.duration
+          });
+
+          currentNote.position = previousNote.position + previousWidth;
+        } else {
+          currentNote.position = 0
+        }
+        return currentNote.position;
+      }
     }
 
     function link (scope, element, attributes, controller) {
@@ -137,7 +168,8 @@
         zoomLevel: '=?',
         tickWidth: '=?',
         duration: '=?',
-        pitch: '=?'
+        pitch: '=?',
+        position: '=?'
       },
       templateUrl: 'app/components/musicode/editor/templates/note-editor.html',
       link: link
@@ -149,6 +181,7 @@
       var initalDuration = 1 /scope.zoomLevel;
       scope.duration = angular.isDefined(scope.duration) ? scope.duration : initalDuration;
       scope.pitch = angular.isDefined(scope.pitch) ? scope.pitch : 0;
+      scope.position = angular.isDefined(scope.position) ? scope.position : 0;
 
       var start, width;
       var dragging = false;
@@ -190,9 +223,17 @@
       function drag (e) {
         e.preventDefault();
 
+        console.log('--------------------------')
+        console.log('position', scope.position);
+        console.log('width', width);
+        console.log('dragged', e.pageX - start);
+
         var smoothWidth = width + e.pageX - start;
-        var numberOfTicks = Math.round(smoothWidth / scope.tickWidth);
-        var newDiscreteWidth = numberOfTicks * scope.tickWidth;
+        var smoothEndPosition = scope.position + smoothWidth;
+        var snappedEndPosition = smoothEndPosition - (smoothEndPosition % scope.tickWidth);
+
+        var newDiscreteWidth = snappedEndPosition - scope.position;
+
         var newDuration = newDiscreteWidth / (scope.tickWidth * scope.zoomLevel);
 
         // Update models

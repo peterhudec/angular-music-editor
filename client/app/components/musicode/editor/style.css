@@ -67,6 +67,8 @@ body.dragging-note {
 .note-editor .menu {
   display: none;
   position: absolute;
+  z-index: 10000;
+  background-color: grey;
 }
 
 .note-editor:hover .menu,

@@ -38,8 +38,8 @@
       pitch <input type="number" ng-model="pitch"><br>
       <div class="clearfix">
         <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="duration" pitch="pitch"></mc-note-editor>
-        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="2" pitch="5"></mc-note-editor>
-        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth" duration="0.5" pitch="7"></mc-note-editor>
+        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth"></mc-note-editor>
+        <mc-note-editor zoom-level="zoomLevel" tick-width="tickWidth"></mc-note-editor>
       </div>
     </div>
 
@@ -73,6 +73,9 @@
         $scope.tickWidth = 20;
         $scope.duration = 2;
         $scope.pitch = 3;
+
+        $scope.foo = 1;
+        $scope.bar = 1;
       });
     </script>
   </body>
